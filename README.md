@@ -3,7 +3,7 @@ This repository contains steps to train an object detection model using tensorfl
 
 
 ## refer the full docs at - 
-    https://c17hawke.github.io/tfod-setup/
+https://c17hawke.github.io/tfod-setup/
 
 
 #### This is a work in progress...
