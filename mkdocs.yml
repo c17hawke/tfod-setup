@@ -5,7 +5,7 @@ site_description: >-
   steps to setup tfod
 # Repository
 repo_name: c17hawke/tfod-steps
-repo_url: https://github.com/c17hawke/tfod-steps/
+repo_url: https://github.com/c17hawke/tfod-setup
 
 # Configuration
 theme:
