@@ -2,6 +2,7 @@
 
 1. iNeuron docs
 2. <a href="https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/index.html" target="_blank">TensorFlow Object Detection API tutorial</a>
+2. <a href="https://github.com/tensorflow/models/tree/master/research/object_detection" target="_blank">TensorFlow Object Detection API tutorial</a>
 
 ---
 
