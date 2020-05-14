@@ -348,7 +348,7 @@ python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=image
 ---
 
 
-## STEP-12 From _research/object_detection/lecgacy/_ copy _train.py_ to research folder
+## STEP-12 From _research/object_detection/legacy/_ copy _train.py_ to research folder
 
 legacy folder contains train.py as shown below - 
 ![legacy folder](img/legacyFolder.png)
