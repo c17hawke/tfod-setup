@@ -56,8 +56,15 @@ pip install pillow lxml Cython contextlib2 jupyter matplotlib pandas opencv-pyth
 
 ---
 
+## STEP-5 Install protobuf using conda package manager
+```
+conda install -c anaconda protobuf
+```
 
-## STEP-5 For protobuff to .py conversion download from tool from here -
+---
+
+
+## STEP-6 For protobuff to .py conversion download from tool from here -
 
 For windows -> [download](https://github.com/protocolbuffers/protobuf/releases/download/v3.11.0/protoc-3.11.0-win64.zip)
 source for other versions and OS - <a href="https://github.com/protocolbuffers/protobuf/releases/tag/v3.11.4" target="_blank">click here</a> 
@@ -74,14 +81,6 @@ protoc object_detection/protos/*.proto --python_out=.
 ### For Windows
 ```
 protoc object_detection/protos/*.proto --python_out=.
-```
-
----
-
-
-## STEP-6 install protobuf using conda package manager
-```
-conda install -c anaconda protobuf
 ```
 
 ---
@@ -124,10 +123,8 @@ python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=image
 ## STEP-10 Copy from _research/object_detection/samples/config/_ _YOURMODEL.config_ file into _research/training_
 
 
-### Changes to be made in config file are highlighted below-
-
 !!! Note
-    Following config file shown here is with respect to ssd_mobilenet_v1_coco.So if you have downloaded it for any other model apart from SSD you'll see config file as shown below-
+    Following config file shown here is with respect to **ssd_mobilenet_v1_coco**.So if you have downloaded it for any other model apart from SSD you'll see config file with YOUR_MODEL_NAME as shown below-
     ```
     model {
     YOUR_MODEL_NAME {
@@ -136,57 +133,222 @@ python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=image
         faster_rcnn_box_coder {
     ```
 
-#### Update no. of classes-
-``` hl_lines="3"
-model {
-  ssd {
-    num_classes: 6
-    box_coder {
-      faster_rcnn_box_coder {
-```
-#### Update no. of steps-
-``` hl_lines="1"
-  num_steps: 20
-  data_augmentation_options {
-    random_horizontal_flip {
-    }
-  }
-  data_augmentation_options {
-    ssd_random_crop {
-    }
-  }
-}
-```
-#### Update input path and label map path
-``` hl_lines="3 5 17 19"
-train_input_reader: {
-  tf_record_input_reader {
-    input_path: "train.record"
-  }
-  label_map_path: "training/labelmap.pbtxt"
-}
+    **Hence always verify YOUR_MODEL_NAME before using the config file.**
 
-eval_config: {
-  num_examples: 8000
-  # Note: The below line limits the evaluation process to 10 evaluations.
-  # Remove the below line to evaluate indefinitely.
-  max_evals: 10
-}
+---
 
-eval_input_reader: {
-  tf_record_input_reader {
-    input_path: "test.record"
-  }
-  label_map_path: "training/labelmap.pbtxt"
-  shuffle: false
-  num_readers: 1
-}
-```
+## STEP-11 Update _num_classes, fine_tune_checkpoint_ ,and _num_steps_ plus update _input_path_ and _label_map_path_ for both _train_input_reader_ and _eval_input_reader_-
+
+
+!!! info
+    Changes to be made in config file are highlighted in yellow color. You must update the value of those keys in the config file.
+
+
+??? Note "Click here to see the full config file"
+    ```JSON linenums="1" hl_lines="9 158 164 177 179 191 193"
+    # SSDLite with Mobilenet v1 configuration for MSCOCO Dataset.
+    # Users should configure the fine_tune_checkpoint field in the train config as
+    # well as the label_map_path and input_path fields in the train_input_reader and
+    # eval_input_reader. Search for "PATH_TO_BE_CONFIGURED" to find the fields that
+    # should be configured.
+
+    model {
+      ssd {
+        num_classes: 6
+        box_coder {
+          faster_rcnn_box_coder {
+            y_scale: 10.0
+            x_scale: 10.0
+            height_scale: 5.0
+            width_scale: 5.0
+          }
+        }
+        matcher {
+          argmax_matcher {
+            matched_threshold: 0.5
+            unmatched_threshold: 0.5
+            ignore_thresholds: false
+            negatives_lower_than_unmatched: true
+            force_match_for_each_row: true
+          }
+        }
+        similarity_calculator {
+          iou_similarity {
+          }
+        }
+        anchor_generator {
+          ssd_anchor_generator {
+            num_layers: 6
+            min_scale: 0.2
+            max_scale: 0.95
+            aspect_ratios: 1.0
+            aspect_ratios: 2.0
+            aspect_ratios: 0.5
+            aspect_ratios: 3.0
+            aspect_ratios: 0.3333
+          }
+        }
+        image_resizer {
+          fixed_shape_resizer {
+            height: 300
+            width: 300
+          }
+        }
+        box_predictor {
+          convolutional_box_predictor {
+            min_depth: 0
+            max_depth: 0
+            num_layers_before_predictor: 0
+            use_dropout: false
+            dropout_keep_probability: 0.8
+            kernel_size: 3
+            use_depthwise: true
+            box_code_size: 4
+            apply_sigmoid_to_scores: false
+            conv_hyperparams {
+              activation: RELU_6,
+              regularizer {
+                l2_regularizer {
+                  weight: 0.00004
+                }
+              }
+              initializer {
+                truncated_normal_initializer {
+                  stddev: 0.03
+                  mean: 0.0
+                }
+              }
+              batch_norm {
+                train: true,
+                scale: true,
+                center: true,
+                decay: 0.9997,
+                epsilon: 0.001,
+              }
+            }
+          }
+        }
+        feature_extractor {
+          type: 'ssd_mobilenet_v1'
+          min_depth: 16
+          depth_multiplier: 1.0
+          use_depthwise: true
+          conv_hyperparams {
+            activation: RELU_6,
+            regularizer {
+              l2_regularizer {
+                weight: 0.00004
+              }
+            }
+            initializer {
+              truncated_normal_initializer {
+                stddev: 0.03
+                mean: 0.0
+              }
+            }
+            batch_norm {
+              train: true,
+              scale: true,
+              center: true,
+              decay: 0.9997,
+              epsilon: 0.001,
+            }
+          }
+        }
+        loss {
+          classification_loss {
+            weighted_sigmoid {
+            }
+          }
+          localization_loss {
+            weighted_smooth_l1 {
+            }
+          }
+          hard_example_miner {
+            num_hard_examples: 3000
+            iou_threshold: 0.99
+            loss_type: CLASSIFICATION
+            max_negatives_per_positive: 3
+            min_negatives_per_image: 0
+          }
+          classification_weight: 1.0
+          localization_weight: 1.0
+        }
+        normalize_loss_by_num_matches: true
+        post_processing {
+          batch_non_max_suppression {
+            score_threshold: 1e-8
+            iou_threshold: 0.6
+            max_detections_per_class: 100
+            max_total_detections: 100
+          }
+          score_converter: SIGMOID
+        }
+      }
+    }
+
+    train_config: {
+      batch_size: 24
+      optimizer {
+        rms_prop_optimizer: {
+          learning_rate: {
+            exponential_decay_learning_rate {
+              initial_learning_rate: 0.004
+              decay_steps: 800720
+              decay_factor: 0.95
+            }
+          }
+          momentum_optimizer_value: 0.9
+          decay: 0.9
+          epsilon: 1.0
+        }
+      }
+      fine_tune_checkpoint: "ssd_mobilenet_v1_coco_2018_01_28/model.ckpt"
+      from_detection_checkpoint: true
+      # Note: The below line limits the training process to 200K steps, which we
+      # empirically found to be sufficient enough to train the pets dataset. This
+      # effectively bypasses the learning rate schedule (the learning rate will
+      # never decay). Remove the below line to train indefinitely.
+      num_steps: 20000
+      data_augmentation_options {
+        random_horizontal_flip {
+        }
+      }
+      data_augmentation_options {
+        ssd_random_crop {
+        }
+      }
+    }
+
+    train_input_reader: {
+      tf_record_input_reader {
+        input_path: "train.record"
+      }
+      label_map_path: "training/labelmap.pbtxt"
+    }
+
+    eval_config: {
+      num_examples: 8000
+      # Note: The below line limits the evaluation process to 10 evaluations.
+      # Remove the below line to evaluate indefinitely.
+      max_evals: 10
+    }
+
+    eval_input_reader: {
+      tf_record_input_reader {
+        input_path: "test.record"
+      }
+      label_map_path: "training/labelmap.pbtxt"
+      shuffle: false
+      num_readers: 1
+    }
+
+    ```
 
 ---
 
 
-## STEP-11 From _research/object_detection/lecgacy/_ copy _train.py_ to research folder
+## STEP-12 From _research/object_detection/lecgacy/_ copy _train.py_ to research folder
 
 legacy folder contains train.py as shown below - 
 ![legacy folder](img/legacyFolder.png)
@@ -194,7 +356,7 @@ legacy folder contains train.py as shown below -
 ---
 
 
-## STEP-12 Copy _deployment_ and _nets_ folder from _research/slim_ into research folder
+## STEP-13 Copy _deployment_ and _nets_ folder from _research/slim_ into research folder
 
 slim folder contains the following folders -
 
@@ -203,7 +365,7 @@ slim folder contains the following folders -
 
 ---
 
-## STEP-13 NOW Run from research folder. This will start the training in your local system-
+## STEP-14 NOW Run from research folder. This will start the training in your local system-
 
 !!! NOTE
     copy the command and replace **YOUR_MODEL.config** with your own models name for example **ssd_mobilenet_v1_coco**

@@ -31,7 +31,8 @@ extra:
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML
 markdown_extensions:
-  - codehilite
+  - codehilite:
+      linenums: true
   - admonition
   - pymdownx.arithmatex
   - footnotes
