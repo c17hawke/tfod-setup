@@ -365,10 +365,10 @@ slim folder contains the following folders -
 
 ---
 
-## STEP-14 NOW Run from research folder. This will start the training in your local system-
+## STEP-14 NOW Run the following command from research folder. This will start the training in your local system-
 
 !!! NOTE
-    copy the command and replace **YOUR_MODEL.config** with your own models name for example **ssd_mobilenet_v1_coco**
+    copy the command and replace **YOUR_MODEL.config** with your own model's name for example **ssd_mobilenet_v1_coco**
 ```
 python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/YOUR_MODEL.config
 ```
