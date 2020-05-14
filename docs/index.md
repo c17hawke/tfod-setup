@@ -6,14 +6,21 @@
 
 1. [Download](https://github.com/tensorflow/models/tree/v1.13.0) v1.13.0 model
 
-2. [Download](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz)  faster_rcnn_inception_v2_coco or any other model of your choice
+2. [Download](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz)  faster_rcnn_inception_v2_coco or ssd_mobilenet_v1_coco_2018_01_28 or any other model of your choice
 
 3. [Download](https://drive.google.com/file/d/12F5oGAuQg7qBM_267TCMt_rlorV-M7gf/view?usp=sharing) Dataset & utils
 
 
 4. [Download](https://tzutalin.github.io/labelImg/) labelImg tool
 
-extract all the above zip files into a tfod folder
+before extraction your shoud have a the following compressed files - 
+
+![zipFiles](img/zipFiles.png)
+
+
+extract all the above zip files into a tfod folder and remove the compressed files. Now you should have the following folders -
+
+![firstExtaction](img/firstExtaction.png)
 
 ## Creating virtual env using conda
 
@@ -43,11 +50,14 @@ pip install pillow lxml Cython contextlib2 jupyter matplotlib pandas opencv-pyth
 ---
 
 ## For protobuff to py conversion download from -
-[here](https://github.com/protocolbuffers/protobuf/releases/download/v3.11.0/protoc-3.11.0-win64.zip) for windows
 
-```
-cd C:\tensorflow1\models\research
-```
+For windows -> [download](https://github.com/protocolbuffers/protobuf/releases/download/v3.11.0/protoc-3.11.0-win64.zip)
+
+
+Open a commmand line and cd to research folder
+
+
+Now in research folder run the following command-
 
 ## linux mac
 ```
@@ -66,13 +76,21 @@ conda install -c anaconda protobuf
 
 ## Paste all things present in utils into research folder
 
-## Paste model foler into research folder
+Following are the files and folder present in the utils folder-
+
+![utils folder structure](img/underUtilsFolder.png)
+
+
+## Paste SSD or fasterRCNN folder or any other model downloaded from model zoo into research folder-
+
 Now cd to research folder and run the following python file -
+
 ```
 python xml_to_csv.py
 ```
 
 ## Run the following to generate train and test records
+
 ```
 python generate_tfrecord.py --csv_input=images/train_labels.csv --image_dir=images/train --output_path=train.record
 ```
@@ -83,7 +101,8 @@ python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=image
 
 ## Copy from research/object_detection/samples/config/ faster_rcnn_inception_v2_coco.config into research/training
 
-## Changes to be maid in config file are highlighted below-
+
+## Changes to be made in config file are highlighted below-
 
 ### Update no. of classes-
 ``` hl_lines="3"
@@ -134,10 +153,20 @@ eval_input_reader: {
 
 ## From research/object_detection/lecgacy/ copy train.py to research folder
 
-## Copy deplyment and nets folder from research/slim into research
+legacy folder contains train.py as shown below - 
+![legacy folder](img/legacyFolder.png)
+
+## Copy deployment and nets folder from research/slim into research
+
+slim folder contains the following folders -
+
+![slim folder](img/slimFolder.png)
 
 ## NOW Run from research folder. This will start ur training local system-
 
 ```
 python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_coco.config
 ```
+
+!!! Warning
+    Always run all the commands in research folder
