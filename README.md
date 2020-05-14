@@ -1,4 +1,4 @@
-![Cover](docs/img/ReadMeCover.png)
+[![Cover](docs/img/ReadMeCover.png)](https://c17hawke.github.io/tfod-setup/)
 
 # tfod-setup
 This repository contains steps to train an object detection model using tensorflow on google colab
@@ -7,4 +7,7 @@ This repository contains steps to train an object detection model using tensorfl
 https://c17hawke.github.io/tfod-setup/
 
 
-#### This is a work in progress...
+---
+## NOTE-
+This is a work in progress...
+For any suggestion mail me at - sunny.c17hawke@gmail.com
