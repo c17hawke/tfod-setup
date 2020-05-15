@@ -1,4 +1,4 @@
-# References- 
+# References 
 
 1. iNeuron docs
 2. TensorFlow Object Detection API | <a href="https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/index.html" target="_blank">tutorial</a>
