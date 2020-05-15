@@ -6,7 +6,6 @@
 4. "How to prevent Google Colab from disconnecting ?" | <a href="https://medium.com/@shivamrawat_756/how-to-prevent-google-colab-from-disconnecting-717b88a128c0" target="_blank">MEDIUM BLOG</a>
 4. "Getting Local with Google Colab" | <a href="https://medium.com/@jasonrichards911/getting-local-with-google-colab-a4d69f373364" target="_blank">MEDIUM BLOG</a>
 
-
 ---
 
 # For any Feedback -

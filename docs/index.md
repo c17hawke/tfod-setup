@@ -1,4 +1,4 @@
-# Steps to configure TensorFlow object detection-
+# Configuration steps for TensorFlow object detection-
 
 ## STEP-1 Download the following content- 
 
