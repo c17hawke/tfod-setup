@@ -357,7 +357,7 @@ legacy folder contains train.py as shown below -
 ---
 
 
-## STEP-13 Copy deployment and nets folder from research/slim into the research folder-
+## STEP-13 Copy _deployment_ and _nets_ folder from _research/slim_ into the _research_ folder-
 
 slim folder contains the following folders -
 
@@ -366,10 +366,10 @@ slim folder contains the following folders -
 
 ---
 
-## STEP-14 NOW Run the following command from the research folder. This will start the training in your local system-
+## STEP-14 NOW Run the following command from the _research_ folder. This will start the training in your _local system_-
 
 !!! NOTE
-    copy the command and replace **YOUR_MODEL.config** with your own model's name for example **ssd_mobilenet_v1_coco.config**
+    copy the command and replace **YOUR_MODEL.config** with your own model's name for example **ssd_mobilenet_v1_coco.config** and then run it in cmd prompt or terminal. And _make sure you are in research folder_.
 ```
 python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/YOUR_MODEL.config
 ```
