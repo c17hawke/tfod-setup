@@ -4,7 +4,7 @@
 
 1. [Download](https://github.com/tensorflow/models/tree/v1.13.0) v1.13.0 model.
 
-2. [Download](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) the ssd_mobilenet_v1_coco model from the model zoo **or** any other model of your choice from <a href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md" target="_blank">TensorFlow model zoo.</a>
+2. [Download](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) the ssd_mobilenet_v1_coco model from the model zoo **or** any other model of your choice from <a href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md" target="_blank">TensorFlow 1 Detection Model Zoo.</a>
 
 3. [Download](https://drive.google.com/file/d/12F5oGAuQg7qBM_267TCMt_rlorV-M7gf/view?usp=sharing) Dataset & utils.
 
