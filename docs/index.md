@@ -33,7 +33,7 @@ Now you should have the following folders -
     for specific python version
 
     ```
-    conda create -n your_env_name python=3.6
+    conda create -n your_env_name python=3.7
     ```
     for latest python version
     ```
@@ -47,11 +47,11 @@ Now you should have the following folders -
 
 ### for GPU
 ```
-pip install pillow lxml Cython contextlib2 jupyter matplotlib pandas opencv-python tensorflow-gpu==1.14.0
+pip install pillow lxml Cython contextlib2 jupyter matplotlib pandas opencv-python tensorflow-gpu==1.15.0
 ```
 ### for CPU only 
 ```
-pip install pillow lxml Cython contextlib2 jupyter matplotlib pandas opencv-python tensorflow==1.14.0
+pip install pillow lxml Cython contextlib2 jupyter matplotlib pandas opencv-python tensorflow==1.15.0
 ```
 
 ---
